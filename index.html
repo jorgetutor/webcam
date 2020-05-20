@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:fb="http://ogp.me/ns/fb#">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  	<title>Camera and Video with HTML5</title>
+  	<meta name="description" content="Access the desktop camera and video using HTML, JavaScript, and Canvas.  The camera may be controlled using HTML5 and getUserMedia." />
+  	<style>
+      body { margin: 0;}
+  		video { border: 1px solid #ccc; display: block; margin: 0 0 20px 0; }
+  	</style>
+  </head>
+  <body>
+  	<video id="video" width="100%" height="100%" autoplay></video>
+  	<button id="open">Open in popup</button>
+  	<script>
+
+  		window.addEventListener("DOMContentLoaded", function() {
+        var video = document.getElementById('video');
+        var mediaConfig = { video: true };
+        var errBack = function(e) {
+        	console.log('An error has occurred!', e)
+        };
+
+  			// Put video listeners into place
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+      		    //video.src = window.URL.createObjectURL(stream);
+      		    video.srcObject = stream;
+              video.play();
+          });
+        }
+        else if(navigator.getUserMedia) { // Standard
+  				navigator.getUserMedia(mediaConfig, function(stream) {
+  					video.src = stream;
+  					video.play();
+  				}, errBack);
+  			} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+  				navigator.webkitGetUserMedia(mediaConfig, function(stream){
+  					video.src = window.webkitURL.createObjectURL(stream);
+  					video.play();
+  				}, errBack);
+  			} else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
+  				navigator.mozGetUserMedia(mediaConfig, function(stream){
+  					video.src = window.URL.createObjectURL(stream);
+  					video.play();
+  				}, errBack);
+  			}
+
+  			document.getElementById('open').addEventListener('click', function() {
+          // let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
+          // open(window.location.href, 'test', params);
+          window.open(window.location.href,'window','toolbar=no, menubar=no, resizable=yes');
+  			});
+  		}, false);
+
+  	</script>
+  </body>
+</html>
