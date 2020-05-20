@@ -4,16 +4,15 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-  	<title>Camera and Video with HTML5</title>
+  	<title>WebCam</title>
   	<meta name="description" content="Access the desktop camera and video using HTML, JavaScript, and Canvas.  The camera may be controlled using HTML5 and getUserMedia." />
   	<style>
-      body { margin: 0;}
-  		video { border: 1px solid #ccc; display: block; margin: 0 0 20px 0; }
+      body { margin: 0; background: #000; overflow: hidden;}
+  		video { border: 0px solid #ccc; display: block; margin: 0; }
   	</style>
   </head>
   <body>
   	<video id="video" width="100%" height="100%" autoplay></video>
-  	<button id="open">Open in popup</button>
   	<script>
 
   		window.addEventListener("DOMContentLoaded", function() {
@@ -48,11 +47,6 @@
   				}, errBack);
   			}
 
-  			document.getElementById('open').addEventListener('click', function() {
-          // let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
-          // open(window.location.href, 'test', params);
-          window.open(window.location.href,'window','toolbar=no, menubar=no, resizable=yes');
-  			});
   		}, false);
 
   	</script>
